@@ -30,6 +30,8 @@ while(<>){
     }
     if($ta == -1){
        $curr_data -= $recdata[$ch_count+1]*$ch_count;
+    }elsif($ta == 0){
+        $curr_data = $curr_data;
     }else{
         $curr_data -= $recdata[$ta+1]*$ch_count;
     }
