@@ -47,6 +47,10 @@ while(<>){
       &add_data(\@recdata);
     }
   }else{#温度データ以外をそのまま追記
+    if($line =~ /[Alarm\d|NO]/){
+      $line =~ s/Alarm.+,?|\"A\d+\",?//g;
+      $line =~ s/,\s*$//;
+    }
     push(@slimdata,$line);
   }
 }
@@ -54,6 +58,8 @@ while(<>){
 foreach my $eline(@slimdata){
   print "$eline\n";
 }
+
+
 
 sub total_temp{
   my $recdata = shift;
