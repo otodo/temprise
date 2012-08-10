@@ -12,8 +12,8 @@ our $prevdata = 0;
 our @slimdata;
 my $ch_count = 0;
 
-my $err_message = "ta is 0 but convert is not 0";
-die $err_message if(($ta == 0) and ($convert != 0));
+my $err_message = "Error!!\nta is 0 but convert is not 0";
+die "$err_message" if(($ta == 0) and ($convert != 0));
 
 while(<>){
   my $line;
