@@ -5,7 +5,7 @@ use warnings;
 our $ta = -1; #Taの場所を指定 ch3ならば、ta=3; -1ならば最後のch, 0ならばTaなし
 our $diff = 0.5; #Ch1 - Chn までの合計温度差
 # my $ind_diff = 0.5; #個々の温度差
-our $convert = 40; #温度換算, 0ならば温度換算を行わない
+our $convert = 0; #温度換算, 0ならば温度換算を行わない
 #-----------------------
 
 our $prevdata = 0;
@@ -31,9 +31,15 @@ while(<>){
     $ta = $ch_count if($ta == -1);
 
     foreach my $data(@recdata){
-        $data =~ s/^\+//;
+      $data =~ s/^\+//;
+      if($data =~ /BURN OUT/){
+        if(($ta != 0) && ($recdata[$ta+1] ne "BURN OUT")){
+          $data =~ s/BURN OUT/$recdata[$ta+1]/;
+        }else{
+          $data =~ s/BURN OUT/25/;
+        }
+      }
     }
-
     
     if($convert == 0){#生データでの処理
       &add_data(\@recdata);
